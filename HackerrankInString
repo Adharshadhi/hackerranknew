@@ -1,0 +1,38 @@
+Problem
+----------
+
+We say that a string contains the word hackerrank if a subsequence of its characters spell the word hackerrank. 
+Remeber that a subsequence maintains the order of characters selected from a sequence.
+For each query, print YES on a new line if the string contains hackerrank, otherwise, print NO.
+
+Example
+--------
+s=hackeerrankkk
+
+Return YES as it can be reduced to hackerrank
+
+s=hack
+
+Return NO as it cannot be reduced to hackerrank
+
+My Solution
+-------------
+
+public static String hackerrankInString(String s) {
+    StringBuilder result = new StringBuilder();
+    String expected = "hackerrank";
+
+    int expectedIndex = 0;
+
+    for(int i=0; i<s.length(); i++){
+        if(expectedIndex == expected.length()){
+            break;
+        }
+        if(s.charAt(i) == expected.charAt(expectedIndex)){
+            result.append(s.charAt(i));
+            expectedIndex++;
+        }
+    }
+
+    return result.toString().equals(expected) ? "YES" : "NO";
+}
