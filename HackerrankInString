@@ -15,6 +15,13 @@ s=hack
 
 Return NO as it cannot be reduced to hackerrank
 
+Sample INPUT and OUTPUT
+------------------------
+Input                                            Output
+
+hhaacckkekraraannk                              - YES
+rhbaasdndfsdskgbfefdbrsdfhuyatrjtcrtyytktjjt    - NO
+
 My Solution
 -------------
 
