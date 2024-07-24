@@ -1,0 +1,58 @@
+Problem
+----------
+
+Julius Caesar protected his confidential information by encrypting it using a cipher. 
+Caesar's cipher shifts each letter by a number of letters. If the shift takes you past the end of the alphabet, 
+just rotate back to the front of the alphabet. In the case of a rotation by 3, w, x, y and z would map to z, a, b and c.
+
+Example
+--------
+Input  = abcdefghijklmnopqrstuvwxyz, 3
+
+Output = defghijklmnopqrstuvwxyzabc
+
+Sample INPUT and OUTPUT
+------------------------
+Input                                            Output
+
+middle-Outz, 2                                  - okffng-Qwvb
+
+My Solution
+-------------
+
+public static String caesarCipher(String s, int k) {
+
+    StringBuilder result = new StringBuilder();
+
+    Map<Integer, Integer> asciiMap= new LinkedHashMap<>();
+
+    for(int i=97, j=1; i<=122; i++, j++){
+        asciiMap.put(j,i);
+    }
+
+    for(int i=0; i<s.length(); i++){
+        boolean isUpperCase = s.charAt(i) == Character.toUpperCase(s.charAt(i));
+        int asciiVal = Character.toLowerCase(s.charAt(i));
+        char updated2Char;
+        if(asciiMap.containsValue(asciiVal)){
+            int updatedVal = asciiVal + k;
+            if(updatedVal > 122){
+                int temp = (updatedVal - 122) % 26;
+                int updatedChar = temp == 0 ? 'z' : asciiMap.get(temp);
+                updated2Char = (char) updatedChar;
+            }else{
+                updated2Char = (char) updatedVal;
+            }
+            if(isUpperCase){
+                result.append(Character.toUpperCase(updated2Char));
+            }else{
+                result.append(updated2Char);
+            }
+        }else{
+            result.append(s.charAt(i));
+        }
+    }
+
+    return result.toString();
+
+}
