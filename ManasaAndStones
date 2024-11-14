@@ -1,0 +1,53 @@
+Problem
+----------
+
+Manasa is out on a hike with friends. She finds a trail of stones with numbers on them. She starts following the trail and notices that any two consecutive stones' numbers differ 
+by one of two values. Legend has it that there is a treasure trove at the end of the trail. If Manasa can guess the value of the last stone, the treasure will be hers.
+
+Example
+--------
+Input  = n - 3, a -  1, b - 2 
+
+With differences 1 and 2, all possible series for the first test case are given below:
+
+0,1,2
+0,1,3
+0,2,3
+0,2,4
+
+Hence the output is 2 3 4.
+
+Sample INPUT and OUTPUT
+------------------------
+Input                                            Output
+
+n = 4, a = 10, b = 100                       -   30 120 210 300 
+
+My Solution
+-------------
+
+Note -> Here the catch is that to reach the last stone either the value of a can contribute or b can contribute. Suppose first two stones is a then remaining stones is b.
+For example -> suppose a is 10, b = 100 and n = 4. The first step starts with 0. Then there are n-1 steps that needs to be covered. Each step would be contributed either by a or b.
+Suppose first two steps if a and last is b, then it would be 0, 10, 20, 120. Here we need to calculate all the possibilities of such contributions
+
+Note -> Only thing matters here is the number of times a and b appear. The order of appearance does not matter to get the last stone value.
+
+For example - 0,10,20,120 would be equivalent to 0,10,110,120
+
+We can use the formula (i * a + (n-1-i) * b) -> Here i * a would calculate the contribution of a. Then remaining would be n-1-i * b.
+(ie, n-1 represents total steps and i represents steps already filled by a).
+
+Code
+-----
+
+public static List<Integer> stones(int n, int a, int b) {
+    List<Integer> result;
+    Set<Integer> noDuplicates = new HashSet<>();
+    for(int i = 0; i < n; i++){
+        int finalStone = i * a + (n-1-i) * b ;
+        noDuplicates.add(finalStone);
+    }
+    result = new ArrayList<>(noDuplicates);
+    Collections.sort(result);
+    return result;
+}
