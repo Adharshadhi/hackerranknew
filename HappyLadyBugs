@@ -1,0 +1,70 @@
+Problem
+----------
+
+Happy Ladybugs is a board game having the following properties:
+
+The board is represented by a string, b , of length n. The i^th character of the string,b[i] , denotes the i^th cell of the board.
+
+If b[i] is an underscore (i.e., _), it means the  cell of the board is empty.
+If b[i] is an uppercase English alphabetic letter (ascii[A-Z]), it means the i^th cell contains a ladybug of color b[i].
+String b will not contain any other characters.
+
+A ladybug is happy only when its left or right adjacent cell (i.e., b[i+1 or i-1) is occupied by another ladybug having the same color.
+In a single move, you can move a ladybug from its current position to any empty cell.
+
+Given the values of n and b for g games of Happy Ladybugs, determine if it's possible to make all the ladybugs happy. 
+For each game, return YES if all the ladybugs can be made happy through some number of moves. Otherwise, return NO.
+
+Example
+--------
+Input  = b = "YYR_B_BR"
+
+Here we can move the cells and make it "YYRRBB". So return "YES"
+
+Sample INPUT and OUTPUT
+------------------------
+Input                                            Output
+
+b = "X_Y__X"                    -                NO
+
+My Solution
+-------------
+
+Note -> Here what we can do is to convert the given string to an array. Then apply sort on the characters. Now iterate through each character and check if left or right element is equal.
+Some corner cases are there which needs to be handled accordingly (eg: empty "__")
+
+Code
+-----
+
+public static String happyLadybugs(String b) {
+    String[] bugArr = b.split("");
+    if(b.contains("_")){
+        Arrays.sort(bugArr);
+    }
+    bugArr = Arrays.stream(bugArr)
+            .filter(s -> !s.equals("_"))
+            .toArray(String[]::new);
+    boolean isPresent = false;
+
+    if(bugArr.length == 0){
+        return "YES";
+    }
+
+    if(bugArr.length > 1){
+        if(!bugArr[0].equalsIgnoreCase(bugArr[1])
+                || !bugArr[bugArr.length-1].equalsIgnoreCase(bugArr[bugArr.length-2])){
+            return "NO";
+        }
+        for(int i=1; i<bugArr.length-1; i++){
+            String currentElement = bugArr[i];
+            if(currentElement.equals(bugArr[i-1]) || currentElement.equals(bugArr[i+1])){
+                isPresent = true;
+            }else{
+                isPresent = false;
+                break;
+            }
+        }
+    }
+
+    return isPresent ? "YES" : "NO";
+}
